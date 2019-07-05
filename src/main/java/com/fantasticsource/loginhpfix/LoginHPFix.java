@@ -10,6 +10,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.Set;
 
@@ -33,18 +35,20 @@ public class LoginHPFix
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    public static void playerLogon(PlayerEvent.PlayerLoggedInEvent event)
+    public static void serverTick(TickEvent.PlayerTickEvent event)
     {
-        //TODO need to do this a bit later, in a more flexible way...maybe on max hp change within first x ticks if there's an event for that, otherwise just check after x ticks
-        EntityPlayer player = event.player;
-        Set<String> strings = player.getTags();
-        for (String s : strings.toArray(new String[0]))
+        if (event.side == Side.SERVER && event.phase == TickEvent.Phase.END)
         {
-            if (s.contains("loginhp"))
+            EntityPlayer player = event.player;
+            Set<String> strings = player.getTags();
+            for (String s : strings.toArray(new String[0]))
             {
-                player.setHealth(player.getMaxHealth() * Float.parseFloat(s.replace("loginhp", "")));
-                strings.remove(s);
-                break;
+                if (s.contains("loginhp"))
+                {
+                    player.setHealth(player.getMaxHealth() * Float.parseFloat(s.replace("loginhp", "")));
+                    strings.remove(s);
+                    break;
+                }
             }
         }
     }
@@ -63,6 +67,5 @@ public class LoginHPFix
             }
         }
         strings.add("loginhp" + String.format("%.2f", player.getHealth() / player.getMaxHealth()));
-        System.out.println("loginhp" + String.format("%.2f", player.getHealth() / player.getMaxHealth()));
     }
 }
