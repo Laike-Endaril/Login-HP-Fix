@@ -2,7 +2,7 @@
 {
   "modid": "loginhpfix",
   "name": "Login HP Fix",
-  "description": "No Description!",
+  "description": "Makes it so players login with the same HP they had when they logged out (ie. when max HP is changed)",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
