@@ -13,7 +13,7 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
 import java.util.Set;
 
-@Mod(modid = LoginHPFix.MODID, name = LoginHPFix.NAME, version = LoginHPFix.VERSION, acceptableRemoteVersions = "*")
+@Mod(modid = LoginHPFix.MODID, name = LoginHPFix.NAME, version = LoginHPFix.VERSION, dependencies = "required-after:fantasticlib@[1.12.2.020,)", acceptableRemoteVersions = "*")
 public class LoginHPFix
 {
     public static final String MODID = "loginhpfix";
