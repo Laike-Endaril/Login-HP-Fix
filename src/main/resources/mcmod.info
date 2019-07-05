@@ -1,0 +1,16 @@
+[
+{
+  "modid": "loginhpfix",
+  "name": "Login HP Fix",
+  "description": "No Description!",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Laike_Endaril"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
