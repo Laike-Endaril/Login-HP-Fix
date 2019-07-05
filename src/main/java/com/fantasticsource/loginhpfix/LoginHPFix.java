@@ -8,8 +8,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@Mod(modid = LoginHPFIx.MODID, name = LoginHPFIx.NAME, version = LoginHPFIx.VERSION)
-public class LoginHPFIx
+@Mod(modid = LoginHPFix.MODID, name = LoginHPFix.NAME, version = LoginHPFix.VERSION)
+public class LoginHPFix
 {
     public static final String MODID = "loginhpfix";
     public static final String NAME = "Login HP Fix";
@@ -18,7 +18,7 @@ public class LoginHPFIx
     @Mod.EventHandler
     public static void preInit(FMLPreInitializationEvent event)
     {
-        MinecraftForge.EVENT_BUS.register(LoginHPFIx.class);
+        MinecraftForge.EVENT_BUS.register(LoginHPFix.class);
     }
 
     @SubscribeEvent
