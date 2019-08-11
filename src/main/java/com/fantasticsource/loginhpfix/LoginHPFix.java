@@ -34,6 +34,12 @@ public class LoginHPFix
         if (event.getModID().equals(MODID)) ConfigManager.sync(MODID, Config.Type.INSTANCE);
     }
 
+    @SubscribeEvent
+    public static void playerLogin(PlayerEvent.PlayerLoggedInEvent event)
+    {
+        event.player.getTags().add("loginhpgo");
+    }
+
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void serverTick(TickEvent.PlayerTickEvent event)
     {
@@ -43,29 +49,18 @@ public class LoginHPFix
             Set<String> strings = player.getTags();
             for (String s : strings.toArray(new String[0]))
             {
-                if (s.contains("loginhp"))
+                if (s.contains("loginhp") && !s.equals("loginhpgo"))
                 {
-                    player.setHealth(player.getMaxHealth() * Float.parseFloat(s.replace("loginhp", "")));
+                    if (strings.contains("loginhpgo"))
+                    {
+                        player.setHealth(player.getMaxHealth() * Float.parseFloat(s.replace("loginhp", "")));
+                        strings.remove("loginhpgo");
+                    }
                     strings.remove(s);
                     break;
                 }
             }
+            strings.add("loginhp" + String.format("%.2f", player.getHealth() / player.getMaxHealth()));
         }
-    }
-
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public static void playerLogoff(PlayerEvent.PlayerLoggedOutEvent event)
-    {
-        EntityPlayer player = event.player;
-        Set<String> strings = player.getTags();
-        for (String s : strings.toArray(new String[0]))
-        {
-            if (s.contains("loginhp"))
-            {
-                strings.remove(s);
-                break;
-            }
-        }
-        strings.add("loginhp" + String.format("%.2f", player.getHealth() / player.getMaxHealth()));
     }
 }
